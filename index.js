@@ -4,6 +4,6 @@ exports.handler = (event, context, callback) => {
     currentTime.setTimezone("America/Los_Angeles");
     callback(null, {
         statusCode: '200',
-        body: 'Hello The time in Los Angeles is: ' + currentTime.toString(),
+        body: 'Hello Hello The time in Los Angeles is: ' + currentTime.toString(),
     });
 };
