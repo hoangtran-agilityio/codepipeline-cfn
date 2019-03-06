@@ -1,0 +1,25 @@
+version: 0.1
+
+phases:
+  install:
+    commands:
+      - apt-get update -y
+      # - apt-get install -y npm
+      # - npm install -g jsonlint
+  pre_build:
+    commands:
+      - echo "Validating CFN templates"
+      # - aws cloudformation validate-template --template-body file://demo.yml
+      #   for cfn_template in $(find . -name "*.yaml"); do
+      #     echo "Validating CloudFormation template file $cfn_template"
+      #     aws cloudformation validate-template --template-body file://$cfn_template
+      #   done
+      # - |
+      #   for cfn_template_conf in $(find . -name "*.json"); do
+      #     echo "Validating CFN parameters config file $cfn_template_conf"
+      #     jsonlint -q $cfn_template_conf
+      #   done
+  build:
+    commands:
+      - echo "Packaging templates to S3"
+      - aws cloudformation package --template-file demo.yaml --s3-bucket awscodepipeline-demobucket-example-20190304 --s3-prefix codebuild --output-template-file test.yaml
