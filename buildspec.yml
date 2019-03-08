@@ -3,8 +3,12 @@ phases:
   install:
     commands:
       - npm install time
+  build:
+    commands:
       - export BUCKET=awscodepipeline-lambda-test
       - aws cloudformation package --template-file template.yaml --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
+      - zip -r testlambda.zip .
+      - aws s3 cp testlambda.zip s3://$BUCKET/
 artifacts:
   type: zip
   files:
